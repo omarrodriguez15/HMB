@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -44,16 +45,25 @@ public class DrinkTracker
 
     public boolean clearDrinkTotal(String drinkType)
     {
+        boolean result = false;
         switch (drinkType.toLowerCase())
         {
             case "all":
-                File file = new File(mContext.getFilesDir().getAbsolutePath().toString()+drinksFile);
-                return file.delete();
+                try
+                {
+                    FileOutputStream fos = mContext.openFileOutput(drinksFile, mContext.MODE_PRIVATE);
+                    result = true;
+                } catch (FileNotFoundException e)
+                {
+                    e.printStackTrace();
+                    result = false;
+                }
             default:
                 break;
         }
-        return false;
+        return result;
     }
+
     //param[0] == filename
     //param[1] == data
     public String writeToStorage(String... params)
@@ -131,32 +141,5 @@ public class DrinkTracker
         }
 
         return result;
-    }
-
-    public void clearFile(String filename)
-    {
-        FileOutputStream fos = null;
-        File file = null;
-
-        try
-        {
-            file = mContext.getFilesDir();
-            fos = mContext.openFileOutput(filename, mContext.MODE_APPEND);
-
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                fos.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }
