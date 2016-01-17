@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="29dp"
         android:layout_alignTop="@+id/linearLayout2"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout3">
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,4 +81,40 @@
             android:background="@null"
             android:src="@drawable/whiskeyrocksxx" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:id="@+id/linearLayout4"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnReset"
+            android:src="@android:drawable/stat_notify_sync"
+            android:layout_alignTop="@+id/linearLayout4"
+            android:layout_toEndOf="@+id/linearLayout" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Total       "
+            android:id="@+id/textView"
+            android:layout_alignBottom="@+id/linearLayout4"
+            android:layout_toEndOf="@+id/imgBtnReset" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txtViewTotalCount"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/linearLayout2" />
+    </LinearLayout>
+
 </RelativeLayout>
