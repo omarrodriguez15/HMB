@@ -11,11 +11,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    ImageButton imgBtnWine, imgBtnBeer, imgBtnMixed, imgBtnReset;
-    TextView txtViewTotalDrinks;
-    DrinkTracker dt;
-    String drinksFile = "Drinks.csv";
-    final String TOTAL = "total";
+    private ImageButton imgBtnWine, imgBtnBeer, imgBtnMixed, imgBtnReset;
+    private TextView txtViewTotalDrinks;
+    private DrinkTracker dt;
+    private String drinksFile = "Drinks.csv";
+    private final String TOTAL = "total";
 
 
     @Override
@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dt = new DrinkTracker(getApplicationContext());
+        DrinkTrackerXML dtXML = new DrinkTrackerXML(getApplicationContext(), "drinks.xml");
+        dtXML.writeToStorage("");
 
         LoadWidgets();
 
