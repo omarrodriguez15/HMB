@@ -25,15 +25,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         dt = new DrinkTracker(getApplicationContext());
 
-        imgBtnBeer = (ImageButton) findViewById(R.id.imgBtnBeer);
-        imgBtnWine = (ImageButton) findViewById(R.id.imgBtnWine);
-        imgBtnMixed = (ImageButton) findViewById(R.id.imgBtnMixed);
-        imgBtnReset = (ImageButton) findViewById(R.id.imgBtnReset);
+        LoadWidgets();
 
-        txtViewTotalDrinks = (TextView) findViewById(R.id.txtViewTotalCount);
-
-        txtViewTotalDrinks.clearComposingText();
-        txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+        UpdateTotalCount();
 
         imgBtnReset.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -41,8 +35,7 @@ public class MainActivity extends AppCompatActivity
             {
                 Toast.makeText(getApplicationContext(), "Reset drink count", Toast.LENGTH_SHORT);
                 dt.clearDrinkTotal("all");
-                txtViewTotalDrinks.clearComposingText();
-                txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+                UpdateTotalCount();
             }
         });
 
@@ -53,8 +46,7 @@ public class MainActivity extends AppCompatActivity
             {
                 dt.writeToStorage(drinksFile, "Beer,");
                 Toast.makeText(getApplicationContext(),"Beer!", Toast.LENGTH_SHORT).show();
-                txtViewTotalDrinks.clearComposingText();
-                txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+                UpdateTotalCount();
             }
         });
 
@@ -65,8 +57,7 @@ public class MainActivity extends AppCompatActivity
             {
                 dt.writeToStorage(drinksFile, "Wine,");
                 Toast.makeText(getApplicationContext(), "Meh Wine!", Toast.LENGTH_SHORT).show();
-                txtViewTotalDrinks.clearComposingText();
-                txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+                UpdateTotalCount();
             }
         });
 
@@ -77,9 +68,23 @@ public class MainActivity extends AppCompatActivity
             {
                 dt.writeToStorage(drinksFile, "Mix Drink,");
                 Toast.makeText(getApplicationContext(), "It better be whiskey!", Toast.LENGTH_SHORT).show();
-                txtViewTotalDrinks.clearComposingText();
-                txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+                UpdateTotalCount();
             }
         });
+    }
+
+    private void UpdateTotalCount()
+    {
+        txtViewTotalDrinks.clearComposingText();
+        txtViewTotalDrinks.setText(Integer.toString(dt.getDrinkTotal(TOTAL)));
+    }
+
+    private void LoadWidgets()
+    {
+        imgBtnBeer = (ImageButton) findViewById(R.id.imgBtnBeer);
+        imgBtnWine = (ImageButton) findViewById(R.id.imgBtnWine);
+        imgBtnMixed = (ImageButton) findViewById(R.id.imgBtnMixed);
+        imgBtnReset = (ImageButton) findViewById(R.id.imgBtnReset);
+        txtViewTotalDrinks = (TextView) findViewById(R.id.txtViewTotalCount);
     }
 }
