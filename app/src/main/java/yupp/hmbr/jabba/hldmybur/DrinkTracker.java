@@ -56,7 +56,8 @@ public class DrinkTracker
             case "all":
                 try
                 {
-                    FileOutputStream fos = mContext.openFileOutput(drinksFile, mContext.MODE_PRIVATE);
+                    mContext.openFileOutput(drinksFile, mContext.MODE_PRIVATE);
+                    mContext.openFileOutput("drinks.json", mContext.MODE_PRIVATE);
                     result = true;
                 } catch (FileNotFoundException e)
                 {
