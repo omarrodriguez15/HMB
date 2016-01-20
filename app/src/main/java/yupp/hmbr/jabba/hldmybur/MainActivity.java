@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dt = new DrinkTracker(getApplicationContext());
-        DrinkTrackerXML dtXML = new DrinkTrackerXML(getApplicationContext(), "drinks.xml");
-        dtXML.writeToStorage("");
 
         LoadWidgets();
 
@@ -46,7 +44,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                dt.writeToStorage(drinksFile, "Beer,");
+                dt.writeToJSON("drinks.json","Beer");
+                dt.writeToStorage(drinksFile, "Beer,", true);
                 Toast.makeText(getApplicationContext(),"Beer!", Toast.LENGTH_SHORT).show();
                 UpdateTotalCount();
             }
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                dt.writeToStorage(drinksFile, "Wine,");
+                dt.writeToStorage(drinksFile, "Wine,", true);
                 Toast.makeText(getApplicationContext(), "Meh Wine!", Toast.LENGTH_SHORT).show();
                 UpdateTotalCount();
             }
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                dt.writeToStorage(drinksFile, "Mix Drink,");
+                dt.writeToStorage(drinksFile, "Mix Drink,", true);
                 Toast.makeText(getApplicationContext(), "It better be whiskey!", Toast.LENGTH_SHORT).show();
                 UpdateTotalCount();
             }
