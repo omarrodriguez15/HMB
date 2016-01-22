@@ -21,6 +21,7 @@ public class DrinkTracker
 {
     Context mContext = null;
     String drinksFile = "Drinks.csv";
+    String logFile = "logFile.txt";
 
     //Constructor gives us context
     public DrinkTracker(Context _context)

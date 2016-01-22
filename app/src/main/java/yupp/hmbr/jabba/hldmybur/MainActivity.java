@@ -1,12 +1,15 @@
 package yupp.hmbr.jabba.hldmybur;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity
@@ -29,49 +32,46 @@ public class MainActivity extends AppCompatActivity
 
         UpdateTotalCount();
 
-        imgBtnReset.setOnClickListener(new View.OnClickListener(){
+        imgBtnReset.setOnClickListener(ResetCounter());
+
+        imgBtnBeer.setOnClickListener(DrinkClick("beer","BEER!"));
+
+        imgBtnWine.setOnClickListener(DrinkClick("wine","Really? Wine!"));
+
+        imgBtnMixed.setOnClickListener(DrinkClick("mixed_drink","It better be Whiskey!"));
+    }
+
+    @NonNull
+    private View.OnClickListener ResetCounter()
+    {
+        return new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
                 Toast.makeText(getApplicationContext(), "Reset drink count", Toast.LENGTH_SHORT);
                 dt.clearDrinkTotal("all");
+                dt.writeToStorage("drinkLog.txt","\n|Reset counter |TIME|"+Calendar.getInstance().getTime()+"|,",true);
                 UpdateTotalCount();
             }
-        });
+        };
+    }
 
-        imgBtnBeer.setOnClickListener(new View.OnClickListener()
+    @NonNull
+    private View.OnClickListener DrinkClick(final String drinkType, final String message)
+    {
+        return new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                dt.writeToJSON("drinks.json","Beer");
-                dt.writeToStorage(drinksFile, "Beer,", true);
-                Toast.makeText(getApplicationContext(),"Beer!", Toast.LENGTH_SHORT).show();
+                dt.writeToJSON("drinks.json",drinkType);
+                dt.writeToStorage("drinkLog.txt","\n"+drinkType+":TIME:"+Calendar.getInstance().getTime()+",",true);
+                dt.writeToStorage(drinksFile, drinkType + ",", true);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                 UpdateTotalCount();
             }
-        });
-
-        imgBtnWine.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                dt.writeToStorage(drinksFile, "Wine,", true);
-                Toast.makeText(getApplicationContext(), "Meh Wine!", Toast.LENGTH_SHORT).show();
-                UpdateTotalCount();
-            }
-        });
-
-        imgBtnMixed.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                dt.writeToStorage(drinksFile, "Mix Drink,", true);
-                Toast.makeText(getApplicationContext(), "It better be whiskey!", Toast.LENGTH_SHORT).show();
-                UpdateTotalCount();
-            }
-        });
+        };
     }
 
     private void UpdateTotalCount()
